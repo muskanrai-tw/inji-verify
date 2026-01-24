@@ -53,24 +53,29 @@ const VcSvgTemplate = ({ vc, templateUrl, onError }: VcSvgTemplateProps) => {
       }
     );
 
-    let renderedSvg = Mustache.render(preprocessedTemplate, vc);
-    renderedSvg = DOMPurify.sanitize(renderedSvg, {
-      USE_PROFILES: { svg: true, svgFilters: true },
-      ADD_TAGS: ["use"],
-      ADD_ATTR: ["target"],
-      FORBID_TAGS: ["script", "iframe", "object", "embed"],
-      FORBID_ATTR: ["onerror", "onload", "onclick", "onmouseover"],
-    });
-    return (
-      <div className="w-full flex justify-center items-center">
-        <div dangerouslySetInnerHTML={{ __html: renderedSvg }} />
-      </div>
-    );
-  } catch (err) {
-    console.error("Mustache render error:", err);
-    onError?.(new Error(err instanceof Error ? err.message : "Failed to render template"));
-    return null;
-  }
+        // Render SVG with data
+        const renderedSvg = Mustache.render(preprocessedTemplate, vc);
+
+        // SECURITY: Sanitize rendered SVG before injecting into DOM
+        const sanitizedSvg = DOMPurify.sanitize(renderedSvg, {
+            USE_PROFILES: { svg: true, svgFilters: true },
+            ADD_TAGS: ["use"],
+            ADD_ATTR: ["target"],
+            FORBID_TAGS: ["script", "iframe", "object", "embed"],
+            FORBID_ATTR: ["onerror", "onload", "onclick", "onmouseover"],
+        });
+        return (
+            <div className="w-full flex justify-center items-center">
+                {/* SECURITY: SVG content is sanitized using DOMPurify */}
+                <div dangerouslySetInnerHTML={{ __html: sanitizedSvg }} />
+            </div>
+        );
+    } catch (err) {
+        console.error("Mustache render error:", err);
+        onError?.(new Error(err instanceof Error ? err.message : "Failed to render template")
+        );
+        return null;
+    }
 };
 
 export default VcSvgTemplate;

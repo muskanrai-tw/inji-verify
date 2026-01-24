@@ -43,7 +43,10 @@ const MobileDropDownMenu = ({ showMenu, setShowMenu }: { showMenu: boolean; setS
   
   // Close the menu if the user clicks outside of it
   const handleClickOutside = useCallback((event: MouseEvent) => {
-    const target = event.target as HTMLElement;
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+          return;
+      }
     if (showMenu && target.closest('#menu') === null && target.closest('#hamburger') === null) {
       setShowMenu(false);
       setShowSubMenu(false)
