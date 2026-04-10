@@ -407,17 +407,17 @@ presentationDefinition={{
 
 ### OpenID4VPVerification Specific
 
-| Property                 | Type     | Default        | Description                               |
-|--------------------------| -------- | -------------- |-------------------------------------------|
-| `protocol`               | string   | "openid4vp://" | Protocol for QR codes (optional)          |
+| Property                   | Type     | Default        | Description                               |
+|----------------------------| -------- |----------------|-------------------------------------------|
+| `protocol`                 | string   | "openid4vp://" | Protocol for QR codes (optional)          |
 | `presentationDefinitionId` | string   | -              | Predefined verification template          |
-| `presentationDefinition` | object   | -              | Custom verification rules                 |
-| `onVpProcessed`          | function | -              | Get full results immediately              |
-| `onVpReceived`           | function | -              | Get transaction ID only                   |
-| `onQrCodeExpired`        | function | -              | Handle QR code expiration                 |
-| `isSameDeviceFlowEnabled` | boolean  | true           | Enable same-device flow (optional)        |
-| `qrCodeStyles`           | object   | -              | Customize QR code appearance              |
-| `vpVerificationRequest`  | object   | -       | contains request body for vp verification |
+| `presentationDefinition`   | object   | -              | Custom verification rules                 |
+| `onVpProcessed`            | function | -              | Get full results immediately              |
+| `onVpReceived`             | function | -              | Get transaction ID only                   |
+| `onQrCodeExpired`          | function | -              | Handle QR code expiration                 |
+| `isSameDeviceFlowEnabled`  | boolean  | true           | Enable same-device flow (optional)        |
+| `qrCodeStyles`             | object   | -              | Customize QR code appearance              |
+| `vpVerificationV2Request`  | object   | -              | contains request body for vp verification |
 
 ## ⚠️ Important Limitations
 
